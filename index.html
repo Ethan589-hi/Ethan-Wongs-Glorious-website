@@ -3,26 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Arcade</title>
+    <title>Arcade Space</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
-        .game-container { margin: 20px auto; width: 800px; }
-        iframe { width: 100%; height: 600px; border: none; background: #000; }
+        /* Pure black background matching KBHGames */
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #050505;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        h2 {
+            text-align: left;
+            max-width: 1200px;
+            margin: 20px auto 10px auto;
+            font-size: 1.8rem;
+            padding-left: 20px;
+        }
+
+        /* The Grid Layout */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* The Game Card container */
+        .game-card {
+            background: #181818;
+            border-radius: 12px;
+            overflow: hidden; /* Keeps the image inside the rounded corners */
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: transform 0.15s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Hover pop effect */
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* The game image */
+        .game-icon {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background-color: #222;
+        }
+
+        /* The dedicated text bar underneath the image */
+        .game-title {
+            background-color: #111111;
+            color: #b3b3b3;
+            font-size: 0.85rem;
+            padding: 8px 4px;
+            text-align: center;
+            font-weight: bold;
+            border-top: 1px solid #222;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .game-card:hover .game-title {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to My Arcade</h1>
-    <p>Enjoy playing these web games!</p>
+    <h2>New Games</h2>
 
-    <div class="game-container">
-        <h3>Game Title Here</h3>
-        <iframe src="https://example.com/path-to-game"></iframe>
+    <div class="game-grid">
+
+        <a href="tetris.html" class="game-card">
+            <img class="game-icon" src="https://placehold.co/150x150/333/fff?text=Tetris" alt="Tetris">
+            <div class="game-title">Tetris</div>
+        </a>
+
+        <a href="#" class="game-card">
+            <img class="game-icon" src="https://placehold.co/150x150/444/fff?text=Blob" alt="Blob Launcher">
+            <div class="game-title">Blob Launcher</div>
+        </a>
+
     </div>
 
 </body>
 </html>
-<div class="game-card">
-            <h3>Tetris (With Effects)</h3>
-            <iframe src="tetris.html"></iframe>
-        </div>
