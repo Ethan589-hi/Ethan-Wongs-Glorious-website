@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Space</title>
     <style>
-        /* Default background style (starts as a dark theme) */
+        /* Default background style */
         body {
             margin: 0;
             padding: 20px;
@@ -16,7 +16,7 @@
             background-attachment: fixed;
             font-family: Arial, sans-serif;
             color: white;
-            transition: background 0.3s ease; /* Smooth fade when switching backgrounds */
+            transition: background 0.3s ease;
         }
 
         /* Top control bar for buttons */
@@ -24,12 +24,12 @@
             max-width: 1200px;
             margin: 10px auto 20px auto;
             display: flex;
-            justify-content: flex-start;
+            gap: 10px;
             padding-left: 20px;
         }
 
-        /* The Change Background Button */
-        .bg-btn {
+        /* Styling for both buttons */
+        .bg-btn, .upload-label {
             background-color: #222;
             color: #fff;
             border: 1px solid #444;
@@ -41,10 +41,16 @@
             align-items: center;
             gap: 5px;
             transition: background 0.2s;
+            font-size: 0.9rem;
         }
 
-        .bg-btn:hover {
+        .bg-btn:hover, .upload-label:hover {
             background-color: #333;
+        }
+
+        /* Hide the ugly default browser file input button */
+        #bg-upload {
+            display: none;
         }
 
         h2 {
@@ -68,7 +74,7 @@
         /* The Game Card container */
         .game-card {
             background: #181818;
-            border-radius: 18px; /* Rounded corners matching your screenshot */
+            border-radius: 18px;
             overflow: hidden; 
             display: flex;
             flex-direction: column;
@@ -110,38 +116,55 @@
 <body>
 
     <div class="control-bar">
-        <button class="bg-btn" onclick="changeBackground()">🖼️ Change Background</button>
+        <button class="bg-btn" onclick="changeBackground()">🖼️ Preset Backgrounds</button>
+        
+        <label for="bg-upload" class="upload-label">
+            📤 Upload Wallpaper
+        </label>
+        <input type="file" id="bg-upload" accept="image/*" onchange="uploadBackground(event)">
     </div>
 
     <h2>New Games</h2>
 
     <div class="game-grid">
 
-       <a href="tetris.html" class="game-card">
-            <img class="game-icon" src=https://m.media-amazon.com/images/I/61M3rDwh4qL.png" alt="Tetris">
+        <a href="tetris.html" class="game-card">
+            <img class="game-icon" src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400" alt="Tetris">
             <div class="game-title">Tetris</div>
         </a>
 
     </div>
 
     <script>
-        // You can change or add any online image URLs you want to this list!
+        // Preset backgrounds array
         const backgrounds = [
-            "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986", // Space/Clouds
-            "https://images.unsplash.com/photo-1579546929518-9e396f3cc809", // Synthwave Gradient
-            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe", // Dark Abstract Digital Art
-            "https://images.unsplash.com/photo-1550684848-fac1c5b4e853"  // Clean Carbon Black Geometry
+            "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986",
+            "https://images.unsplash.com/photo-1579546929518-9e396f3cc809",
+            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe",
+            "https://images.unsplash.com/photo-1550684848-fac1c5b4e853"
         ];
 
         let currentBgIndex = 0;
 
+        // Function to cycle through preset images
         function changeBackground() {
-            // Move to the next background image in the list
             currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
             const newBg = backgrounds[currentBgIndex];
-            
-            // Apply it to the website body while keeping it dark enough to read text
             document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${newBg}')`;
+        }
+
+        // Function to handle custom image uploads
+        function uploadBackground(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const customImageUrl = e.target.result;
+                    // Apply the uploaded image directly to the body background
+                    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${customImageUrl}')`;
+                };
+                reader.readAsDataURL(file);
+            }
         }
     </script>
 
