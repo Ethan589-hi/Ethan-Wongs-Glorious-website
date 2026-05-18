@@ -5,13 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Space</title>
     <style>
-        /* Pure black background matching KBHGames */
+        /* Default background style (starts as a dark theme) */
         body {
             margin: 0;
             padding: 20px;
-            background-color: #050505;
+            background-color: #111;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             font-family: Arial, sans-serif;
             color: white;
+            transition: background 0.3s ease; /* Smooth fade when switching backgrounds */
+        }
+
+        /* Top control bar for buttons */
+        .control-bar {
+            max-width: 1200px;
+            margin: 10px auto 20px auto;
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+
+        /* The Change Background Button */
+        .bg-btn {
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .bg-btn:hover {
+            background-color: #333;
         }
 
         h2 {
@@ -35,16 +68,15 @@
         /* The Game Card container */
         .game-card {
             background: #181818;
-            border-radius: 12px;
-            overflow: hidden; /* Keeps the image inside the rounded corners */
+            border-radius: 18px; /* Rounded corners matching your screenshot */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
             text-decoration: none;
             transition: transform 0.15s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
         }
 
-        /* Hover pop effect */
         .game-card:hover {
             transform: scale(1.05);
         }
@@ -54,10 +86,9 @@
             width: 100%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
-            background-color: #222;
         }
 
-        /* The dedicated text bar underneath the image */
+        /* The title bar under the image */
         .game-title {
             background-color: #111111;
             color: #b3b3b3;
@@ -78,17 +109,46 @@
 </head>
 <body>
 
+    <div class="control-bar">
+        <button class="bg-btn" onclick="changeBackground()">🖼️ Change Background</button>
+    </div>
+
     <h2>New Games</h2>
 
     <div class="game-grid">
 
         <a href="tetris.html" class="game-card">
-            <img class="game-icon" src="https://placehold.co/150x150/333/fff?text=Tetris" alt="Tetris">
+            <img class="game-icon" src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400" alt="Tetris">
             <div class="game-title">Tetris</div>
         </a>
 
+        <a href="https://v6p9d9t4.ssl.hwcdn.net/html/2361664/index.html" class="game-card" target="_blank">
+            <img class="game-icon" src="https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?w=400" alt="Pigeon Ascent">
+            <div class="game-title">Pigeon Ascent</div>
+        </a>
 
     </div>
+
+    <script>
+        // You can change or add any online image URLs you want to this list!
+        const backgrounds = [
+            "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986", // Space/Clouds
+            "https://images.unsplash.com/photo-1579546929518-9e396f3cc809", // Synthwave Gradient
+            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe", // Dark Abstract Digital Art
+            "https://images.unsplash.com/photo-1550684848-fac1c5b4e853"  // Clean Carbon Black Geometry
+        ];
+
+        let currentBgIndex = 0;
+
+        function changeBackground() {
+            // Move to the next background image in the list
+            currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
+            const newBg = backgrounds[currentBgIndex];
+            
+            // Apply it to the website body while keeping it dark enough to read text
+            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${newBg}')`;
+        }
+    </script>
 
 </body>
 </html>
